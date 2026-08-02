@@ -1,0 +1,17 @@
+[package]
+name = "stormer-cli"
+description = "Planned command-line orchestration boundary for Størmer"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "stormer"
+path = "src/main.rs"
+
+[dependencies]
+stormer-frontend = { path = "../stormer-frontend" }
+stormer-runtime = { path = "../stormer-runtime" }
+
+[lints]
+workspace = true

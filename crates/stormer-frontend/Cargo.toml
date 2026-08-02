@@ -1,0 +1,12 @@
+[package]
+name = "stormer-frontend"
+description = "Planned source-language frontend for Størmer"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+stormer-ir = { path = "../stormer-ir" }
+
+[lints]
+workspace = true
