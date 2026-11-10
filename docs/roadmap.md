@@ -202,3 +202,6 @@ Automatic differentiation, native code generation, GPU execution, Python binding
 They are not current requirements.
 
 A later feature must be justified by evidence from the completed interpreted calibration slice rather than by architectural possibility alone.
+
+Candidate milestones beyond this slice are collected in `docs/next-level.md`.
+They are proposals and are not accepted scope until promoted into this roadmap.
