@@ -47,20 +47,20 @@ This workflow will be implemented incrementally after the semantic foundations a
 
 ## Current status
 
-This repository is an architectural scaffold only.
-It contains workspace configuration, crate boundaries, decision records, and planning documents.
-It does not yet parse, check, simulate, fit, compile, or render a physical model.
+Størmer implements the complete Version 0 vertical slice across its four workspace crates:
 
-Illustrative future commands include:
+- **`stormer-ir`**: SI physical dimensions (`Dimension`, `BaseDimension`), typed identifiers (`ParameterId`, `StateId`, `ExprId`), topological expression arenas (`ExpressionArena`), checked model construction (`ModelBuilder`, `Model`), and dimensional inference and validation (`Model::infer_expression_dimension`, `Model::validate_dimensions`).
+- **`stormer-frontend`**: Span-aware `.storm` parser, SI unit notation parser, symbol resolution, dimensional consistency checking, structured diagnostics (`Diagnostic`), and lowering to validated `stormer_ir::Model` (`compile_str`).
+- **`stormer-runtime`**: Checked derivative evaluation (`evaluate_derivative`), explicit Euler (`euler_step`), classical fourth-order Runge-Kutta (`rk4_step`), trajectory integration (`integrate`), zero-lookup IR interpretation (`IrSystem`, `simulate_model`), finite-difference sensitivity analysis (`finite_difference_sensitivity`), and Levenberg-Marquardt parameter calibration (`calibrate_parameter`).
+- **`stormer-cli`**: Working command-line interface supporting `check`, `simulate`, and `fit`.
+
+Try the canonical workflow right away:
 
 ```console
-stormer check pendulum.storm
-stormer simulate pendulum.storm
-stormer fit pendulum.storm observations.csv
-stormer compile pendulum.storm --target wasm
+cargo run -p stormer-cli -- check examples/models/damped_oscillator.storm
+cargo run -p stormer-cli -- simulate examples/models/damped_oscillator.storm --end 5.0 --dt 0.01
+cargo run -p stormer-cli -- fit examples/models/damped_oscillator.storm examples/observations/damped_oscillator_position.csv --param damping --guess 1.8
 ```
-
-These commands are product direction only and are not implemented.
 
 ## Workspace
 
@@ -85,11 +85,19 @@ The runtime does not depend on the frontend, and the IR does not depend on any o
 The scaffold intentionally does not choose or implement:
 
 - A model-language syntax, parser, lexer, or diagnostics framework.
-- A type checker, unit checker, equation IR, or optimizer.
-- Numerical solvers, automatic differentiation, sensitivity analysis, or parameter inference.
+- A type checker, dimension-inference pass, executable normalized IR, or optimizer.
+- Completed numerical solvers, automatic differentiation, sensitivity analysis, or parameter inference.
 - Native code generation, Python bindings, WebAssembly bindings, or a user interface.
 - Parser, linear-algebra, CLI, error, unit, autodiff, e-graph, or code-generation libraries.
 - C, C++, CMake, LLVM, MLIR, Eigen, SUNDIALS, or other FFI infrastructure.
+
+## Learning workflow
+
+Start with [the current status](STATUS.md), [the learning charter](docs/learning-charter.md), [the rolling roadmap](docs/roadmap.md), and [the evolving semantics](docs/semantics.md).
+Repository agents must also follow [the learner-protection instructions](AGENTS.md).
+
+Prepared exercises live under [the guided exercise index](docs/exercises/README.md).
+Their ignored tests are executable specifications, not evidence that the behavior is implemented.
 
 ## Validation
 
@@ -107,4 +115,4 @@ cargo check --workspace
 No language syntax or public API is stable yet.
 Licensing has not yet been selected, so no license is granted by this repository at this stage.
 
-See [the product direction](docs/product.md), [the architecture](docs/architecture.md), and [the roadmap](docs/roadmap.md) for the decisions this scaffold records.
+See [the product direction](docs/product.md), [the architecture](docs/architecture.md), and [the decision records](docs/adr/) for the longer-term direction this scaffold records.

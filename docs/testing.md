@@ -1,7 +1,21 @@
 # Testing strategy
 
-The current repository contains no domain behavior and therefore adds no test framework or synthetic implementation tests.
-As vertical slices arrive, tests should progress from source meaning to numerical evidence and complete user workflows.
+The current repository contains no completed domain behavior.
+It does contain ignored behavioral specifications for the prepared dimensions-and-model-IR exercise.
+Normal workspace tests compile those specifications without running them, so a green baseline does not claim that the exercises work.
+As learner-owned behavior arrives, tests should progress from structural contracts to numerical evidence and complete user workflows.
+
+## Guided exercise behavior
+
+- Exercise tests compile as ordinary integration tests but begin with `#[ignore = "TODO(STORMER-XXX): ..."]`.
+- Every ignored test states observable behavior and reaches a corresponding explicit TODO while the exercise is unfinished.
+- A learner runs one named ignored test while implementing its concept.
+- The ignore marker is removed only after the behavior is complete and the assertion remains intact.
+- Normal green validation and an expected focused TODO failure are different evidence and should be reported separately.
+
+The prepared IR scaffold has 26 ignored tests covering dimension values, expression storage, model construction, invalid references, and exact harmonic-oscillator topology.
+The active runtime scaffold has 25 ignored tests covering checked derivative evaluation, finite-value and shape contracts, Euler, trajectory construction, RK4, and the damped-oscillator capstone.
+Their guides are indexed in `docs/exercises/README.md`.
 
 ## Frontend behavior
 
@@ -15,6 +29,7 @@ No language examples should become normative accidentally before the semantics a
 
 ## Numerical behavior
 
+- The runtime milestone will begin with ignored behavioral specifications rather than a hidden reference solver.
 - Analytical-solution comparisons will measure simulated trajectories against systems with known solutions.
 - Convergence-order tests will verify that numerical error decreases at the expected rate when step size changes.
 - Python and JAX reference comparisons will check Rust results against intentionally independent mathematical experiments.

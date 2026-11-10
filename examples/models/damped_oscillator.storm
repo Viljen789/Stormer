@@ -1,0 +1,12 @@
+# Canonical one-dimensional damped harmonic oscillator
+# m x'' + c x' + k x = 0
+
+parameter mass: kg = 1.0
+parameter damping: kg/s = 0.5
+parameter stiffness: N/m = 4.0
+
+state position: m = 1.0
+state velocity: m/s = 0.0
+
+derivative position = velocity
+derivative velocity = -(damping / mass) * velocity - (stiffness / mass) * position

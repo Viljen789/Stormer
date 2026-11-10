@@ -2,6 +2,7 @@
 
 This document records semantic goals only.
 It does not define final syntax, grammar, file formats, or a stable public interface.
+Accepted, provisional, and open behavioral contracts are tracked separately in [the evolving semantics](semantics.md).
 
 ## Declarative dynamical-system models
 

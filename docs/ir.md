@@ -64,7 +64,36 @@ Graph nodes and values should eventually use stable typed IDs with arena-like ow
 Stable IDs make it possible to reorder, rewrite, index, serialize, and annotate a graph without relying on long-lived Rust references between nodes.
 They also make package boundaries and diagnostic provenance easier to state explicitly.
 
+## Exercise 0001 scaffold
+
+The first prepared guided exercise gives `stormer-ir` this module structure:
+
+```text
+dimension.rs   physical-dimension value shape and seven base categories
+ids.rs         ParameterId, StateId, and ExprId newtypes
+expression.rs  expression node variants and owned arena boundary
+model.rs       declarations, derivatives, Model, and ModelBuilder
+error.rs       structural lookup and model-construction errors
+lib.rs         module declarations and deliberate public re-exports
+```
+
+The public structure includes `Dimension`, `BaseDimension`, the three typed IDs, `Expression`, `ExpressionArena`, `Parameter`, `State`, `DerivativeEquation`, `ModelBuilder`, `Model`, and `ModelError`.
+The expression enum is deliberately limited to constants, declaration references, negation, addition, subtraction, multiplication, and division.
+The model and declaration types expose stored data through read-only accessors.
+
+Meaningful behavior remains unfinished behind `TODO(STORMER-001)` through `TODO(STORMER-013)`.
+Those exercises cover dimension construction and composition, canonical formatting, arena allocation and lookup, expression validation, declaration allocation, derivative checks, model finalization, and programmatic harmonic-oscillator construction.
+The associated behavioral tests compile but remain ignored during normal validation.
+
+No complete model can be constructed without implementing the exercises.
+The scaffold does not perform dimensional inference, parsing, source diagnostics, runtime evaluation, or simulation.
+
+The policy for expression forward references remains deliberately unresolved.
+The project owner must decide whether a valid arena may refer to a node inserted later and protect that decision with a focused test.
+The exact long-term IR should continue to be informed by completed vertical slices rather than by the scaffold alone.
+
 ## Decisions still open
 
-The exact IR node types, storage layout, invariants, normalization rules, serialization format, optimization stages, and execution-plan structures remain undecided.
-No part of this scaffold should be treated as a complete IR specification.
+The current node types and owned vectors are a learning surface for the first model, not a final normalized-IR specification.
+Long-term normalization rules, serialization format, optimization stages, execution-plan structures, and extension boundaries remain undecided.
+No part of this scaffold should be treated as a stable public IR specification.

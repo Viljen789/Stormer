@@ -15,7 +15,9 @@ The graph is intentionally acyclic and has one shared semantic boundary in `stor
 
 ### `stormer-ir`
 
-`stormer-ir` will eventually own language-independent and source-independent model structures.
+`stormer-ir` currently owns a prepared learning scaffold for dimensions, typed IDs, expression storage, declarations, derivatives, and checked model construction.
+Its meaningful behavior remains intentionally unfinished.
+The crate will eventually own language-independent and source-independent model structures that have passed semantic checking.
 Its scope includes stable node and value identifiers, physical dimension representations, scalar and state types, typed expressions, equations, parameters, state-variable declarations, observation declarations, model metadata, and future execution-plan structures.
 It must not own parsing or terminal-facing diagnostics.
 
@@ -26,7 +28,9 @@ It is the only initial package that understands how a model was written in sourc
 
 ### `stormer-runtime`
 
-`stormer-runtime` will eventually own model instantiation, runtime state, equation evaluation, time integration, simulation trajectories, solver configuration, runtime errors, and future sensitivity and differentiation hooks.
+`stormer-runtime` currently owns a prepared learning scaffold for a hard-coded dynamical-system contract, runtime errors, Euler and RK4 step boundaries, repeated integration, and trajectory data.
+Its meaningful numerical behavior remains intentionally unfinished.
+It will eventually own model instantiation, runtime state, equation evaluation, time integration, simulation trajectories, solver configuration, runtime errors, and future sensitivity and differentiation hooks.
 It accepts validated IR and must not know how the source syntax was written.
 
 ### `stormer-cli`
@@ -61,6 +65,22 @@ model source text
 ```
 
 Observation data will enter through the coordinating product surface and be connected to declared observables only after the model has been validated.
+
+## Learning implementation order
+
+The production data flow does not require the learning work to be implemented in the same order.
+The project first proves a hard-coded model and numerical runtime, then builds a manually constructed language and typed-IR path, and only then joins them.
+
+```text
+execution spine: hard-coded model -> runtime representation -> numerical integration
+
+language spine: source text -> syntax tree -> semantic analysis -> typed IR
+
+joined system: source text -> typed IR -> interpreted runtime -> trajectory
+```
+
+This separation lets numerical and compiler failures be investigated independently.
+The prepared IR exercise predates this runtime-first order and remains parked until its corresponding roadmap milestones.
 
 ## Representation constraints
 

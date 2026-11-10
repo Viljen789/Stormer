@@ -1,0 +1,11 @@
+# Undamped one-dimensional harmonic oscillator
+# m x'' + k x = 0
+
+parameter mass: kg = 1.0
+parameter stiffness: N/m = 4.0
+
+state position: m = 1.0
+state velocity: m/s = 0.0
+
+derivative position = velocity
+derivative velocity = -(stiffness / mass) * position

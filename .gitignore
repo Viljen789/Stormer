@@ -2,3 +2,4 @@
 .DS_Store
 *.swp
 experiments/notebooks/.ipynb_checkpoints/
+.idea/
